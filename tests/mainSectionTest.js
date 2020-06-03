@@ -1,26 +1,69 @@
+const pageUrl = 'http://127.0.0.1:5500/';
+const asideButtons = 'aside button';
+const mainContentClass = '.main-content';
+const firstButton = 'button:nth-child(1)';
+const secondButton = 'button:nth-child(2)';
+const modalButton = '.main-button';
+
 module.exports = {
-    "Text in main should be replaced after click"(browser) {
+    "Text in main section should be replaced after click on the first button"(browser) {
         browser
-            .url('http://127.0.0.1:5500/')
-            .waitForElementVisible('aside button')
-            .click('button:nth-child(1)')
-            .assert.containsText('.main-content', 'This is text after click on first button.')
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(firstButton)
+            .assert.containsText(mainContentClass, 'This is text after click on first button.')
             .saveScreenshot('tests_output/first-button.png')
     },
-    "Temporary text should not be visible after click"(browser) {
+    "Temporary text should not be visible after click on first button"(browser) {
         browser
-            .url('http://127.0.0.1:5500/')
-            .waitForElementVisible('aside button')
-            .click('button:nth-child(1)')
-            .assert.not.containsText('.main-content', 'There is no text to display!')
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(firstButton)
+            .assert.not.containsText(mainContentClass, 'There is no text to display!')
             .saveScreenshot('tests_output/first-button-temp-text.png')
     },
-    "Text in main should be replaced with a button after click on second button"(browser) {
+    "Alert should be open after two clicks on first button"(browser) {
         browser
-            .url('http://127.0.0.1:5500/')
-            .waitForElementVisible('aside button')
-            .click('button:nth-child(2)')
-            .assert.visible('.main-button')
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(firstButton)
+            .click(firstButton)
+            .pause(1000)
+            .saveScreenshot('tests_output/first-button-alert.png')
+            .acceptAlert()
+    },
+    "Temporary text should not be visible after click on second button"(browser) {
+        browser
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(secondButton)
+            .assert.not.elementPresent(mainContentClass)
+            .saveScreenshot('tests_output/second-button-temp-text.png')
+    },
+    "Text in main section should be replaced with a button after click on second button"(browser) {
+        browser
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(secondButton)
+            .assert.visible(modalButton)
             .saveScreenshot('tests_output/second-button.png')
+    },
+    "Text in main section should be replaced with a button after click on second button"(browser) {
+        browser
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(secondButton)
+            .assert.visible(modalButton)
+            .saveScreenshot('tests_output/second-button.png')
+    },
+    "Alert should be open after two clicks on second button"(browser) {
+        browser
+            .url(pageUrl)
+            .waitForElementVisible(asideButtons)
+            .click(secondButton)
+            .click(secondButton)
+            .pause(1000)
+            .saveScreenshot('tests_output/second-button-alert.png')
+            .acceptAlert()
     }
 }
