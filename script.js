@@ -6,7 +6,31 @@ const modal = document.querySelector('main .modal');
 const modalCloseButton = document.querySelector('.modal__frame-header-close');
 const modalOkButton = document.querySelector('main .modal__frame-footer button');
 
-// let dataLoading = true;
+const data = {
+    "id": "0001",
+    "type": "donut",
+    "name": "Cake",
+    "ppu": 0.55,
+    "batters": {
+        "batter": [{
+                "id": "1001",
+                "type": "Regular"
+            },
+            {
+                "id": "1002",
+                "type": "Chocolate"
+            },
+            {
+                "id": "1003",
+                "type": "Blueberry"
+            },
+            {
+                "id": "1004",
+                "type": "Devil's Food"
+            }
+        ]
+    }
+};
 
 const changeTextAfterClick = () => {
     const paragraphContent = `This is text after click on first button.`;
@@ -62,7 +86,7 @@ const replaceTextWithButton = (dataLoading) => {
                 document.body.style.cursor = 'default';
                 // Removing loading text and adding JSON data
                 modalContent.removeChild(modalContentParagraph);
-                preElement.textContent = JSON.stringify(data, undefined, 4);
+                preElement.textContent = JSON.stringify(data, null, 4);
             }, 1000);
             // }
 
@@ -90,32 +114,6 @@ const closeModal = (dataLoading) => {
     modalContentParagraph.textContent = 'Loading...';
     modalContent.appendChild(modalContentParagraph);
 }
-
-const data = {
-    "id": "0001",
-    "type": "donut",
-    "name": "Cake",
-    "ppu": 0.55,
-    "batters": {
-        "batter": [{
-                "id": "1001",
-                "type": "Regular"
-            },
-            {
-                "id": "1002",
-                "type": "Chocolate"
-            },
-            {
-                "id": "1003",
-                "type": "Blueberry"
-            },
-            {
-                "id": "1004",
-                "type": "Devil's Food"
-            }
-        ]
-    }
-};
 
 firstButton.addEventListener('click', changeTextAfterClick);
 secondButton.addEventListener('click', replaceTextWithButton);
